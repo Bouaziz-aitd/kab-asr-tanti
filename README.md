@@ -1,1 +1,1 @@
-ASR audio recognition to text transcription based on nemo asr model for kabyle.
+ASR speech recognition and text transcription based on nemo asr model for kabyle.
