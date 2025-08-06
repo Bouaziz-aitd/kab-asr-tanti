@@ -6,10 +6,12 @@ services:
   - type: web
     name: kabyle-asr-backend
     env: python
-    # CORRECTED: Since 'dir: backend' is set, the working directory
-    # for this command is already 'backend/'. So, just 'requirements.txt' is needed.
-    buildCommand: "pip install -r requirements.txt"
+    # Explicitly run the build.sh script from the backend directory
+    # This is the most robust way to ensure the correct working directory for the build command.
+    buildCommand: "cd backend && bash build.sh"
     startCommand: "gunicorn --bind 0.0.0.0:$PORT app:app"
+    # The 'dir' field is still important for the overall service context,
+    # but we're being explicit in buildCommand.
     dir: backend
     plan: free # Ensure this is 'free' if you're on the free tier
 
