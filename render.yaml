@@ -5,6 +5,7 @@ services:
     env: python
     buildCommand: "pip install -r backend/requirements.txt"
     startCommand: "gunicorn --bind 0.0.0.0:$PORT app:app" # Using Gunicorn for production
+    # These fields need to be indented under the service definition
     dir: backend
     plan: starter # Use a paid plan for better performance and to avoid cold starts.
 
@@ -13,5 +14,6 @@ services:
     name: kabyle-asr-frontend
     env: static
     buildCommand: "npm install && npm run build"
+    # These fields need to be indented under the service definition
     publishPath: frontend/build
     dir: frontend
