@@ -1,24 +1,20 @@
 # render.yaml
-# Ensure this file is in the root of your Git repository.
+# This file defines the services for Render deployment.
 
 services:
-  # Backend Service
+  # Backend Service (now located in the root directory)
   - type: web
     name: kabyle-asr-backend
     env: python
-    # Explicitly run the build.sh script from the backend directory
-    # This is the most robust way to ensure the correct working directory for the build command.
-    buildCommand: "cd backend && bash build.sh"
+    buildCommand: "pip install -r requirements.txt" # Path is now relative to the root
     startCommand: "gunicorn --bind 0.0.0.0:$PORT app:app"
-    # The 'dir' field is still important for the overall service context,
-    # but we're being explicit in buildCommand.
-    dir: backend
-    plan: free # Ensure this is 'free' if you're on the free tier
+    # The 'dir' property is removed for the backend as its files are in the root.
+    plan: free # Using the free plan
 
-  # Frontend Service
+  # Frontend Service (remains in its 'frontend' directory)
   - type: web
     name: kabyle-asr-frontend
     env: static
     buildCommand: "npm install && npm run build"
     publishPath: frontend/build
-    dir: frontend
+    dir: frontend # Still needed for the frontend service
