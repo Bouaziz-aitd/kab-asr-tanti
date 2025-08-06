@@ -1,19 +1,7 @@
 services:
-  # Backend Service
   - type: web
-    name: kabyle-asr-backend
+    name: render-test
     env: python
-    buildCommand: "pip install -r backend/requirements.txt"
-    startCommand: "gunicorn --bind 0.0.0.0:$PORT app:app" # Using Gunicorn for production
-    # Corrected indentation for 'dir'
-    dir: backend
-    plan: starter # Use a paid plan for better performance and to avoid cold starts.
-
-  # Frontend Service
-  - type: web
-    name: kabyle-asr-frontend
-    env: static
-    buildCommand: "npm install && npm run build"
-    # Corrected indentation for 'publishPath' and 'dir'
-    publishPath: frontend/build
-    dir: frontend
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn app:app
