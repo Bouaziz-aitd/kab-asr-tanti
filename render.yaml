@@ -6,11 +6,12 @@ services:
   - type: web
     name: kabyle-asr-backend
     env: python
-    # Change buildCommand to execute the new shell script
-    buildCommand: "bash backend/build.sh" 
+    # CORRECTED: Since 'dir: backend' is set, the working directory
+    # for this command is already 'backend/'. So, just 'requirements.txt' is needed.
+    buildCommand: "pip install -r requirements.txt"
     startCommand: "gunicorn --bind 0.0.0.0:$PORT app:app"
     dir: backend
-    plan: free
+    plan: free # Ensure this is 'free' if you're on the free tier
 
   # Frontend Service
   - type: web
