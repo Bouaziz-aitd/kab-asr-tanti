@@ -6,15 +6,16 @@ services:
   - type: web
     name: kabyle-asr-backend
     env: python
-    buildCommand: "pip install -r backend/requirements.txt"
+    # Change buildCommand to execute the new shell script
+    buildCommand: "bash backend/build.sh" 
     startCommand: "gunicorn --bind 0.0.0.0:$PORT app:app"
-    dir: backend # Ensure this is exactly 4 spaces indented from '- type: web'
-    plan: free # Changed to 'free' for free tier deployment
+    dir: backend
+    plan: free
 
   # Frontend Service
   - type: web
     name: kabyle-asr-frontend
     env: static
     buildCommand: "npm install && npm run build"
-    publishPath: frontend/build # Ensure this is exactly 4 spaces indented from '- type: web'
-    dir: frontend # Ensure this is exactly 4 spaces indented from '- type: web'
+    publishPath: frontend/build
+    dir: frontend
