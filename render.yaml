@@ -1,7 +1,20 @@
+# render.yaml
+# Ensure this file is in the root of your Git repository.
+
 services:
+  # Backend Service
   - type: web
-    name: render-test
+    name: kabyle-asr-backend
     env: python
-    plan: free
-    buildCommand: pip install -r requirements.txt
-    startCommand: gunicorn app:app
+    buildCommand: "pip install -r backend/requirements.txt"
+    startCommand: "gunicorn --bind 0.0.0.0:$PORT app:app"
+    dir: backend # Ensure this is exactly 4 spaces indented from '- type: web'
+    plan: free # Changed to 'free' for free tier deployment
+
+  # Frontend Service
+  - type: web
+    name: kabyle-asr-frontend
+    env: static
+    buildCommand: "npm install && npm run build"
+    publishPath: frontend/build # Ensure this is exactly 4 spaces indented from '- type: web'
+    dir: frontend # Ensure this is exactly 4 spaces indented from '- type: web'
