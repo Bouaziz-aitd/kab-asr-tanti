@@ -1,5 +1,0 @@
-Flask
-Flask-CORS
-pydub
-nemo_toolkit[asr]
-gunicorn
